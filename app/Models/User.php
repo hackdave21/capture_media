@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', 
     ];
 
     /**
@@ -44,5 +46,48 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /* =================== Relationships =================== */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function videos(): HasMany
+    {
+        return $this->hasMany(Video::class);
+    }
+
+    /* =================== Role helpers =================== */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isEditor(): bool
+    {
+        return in_array($this->role, ['editor', 'admin'], true);
+    }
+
+    public function isAuthor(): bool
+    {
+        return in_array($this->role, ['author', 'editor', 'admin'], true);
+    }
+
+    /* =================== Scopes =================== */
+    public function scopeAdmins($query)
+    {
+        return $query->where('role', 'admin');
+    }
+
+    public function scopeEditors($query)
+    {
+        return $query->whereIn('role', ['editor', 'admin']);
+    }
+
+    public function scopeAuthors($query)
+    {
+        return $query->whereIn('role', ['author', 'editor', 'admin']);
     }
 }
