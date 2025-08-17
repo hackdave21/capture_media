@@ -7,11 +7,6 @@
   <div class="col-12 mb-3">
     <div class="d-flex align-items-center justify-content-between">
       <h4 class="mb-0">Tableau de bord</h4>
-      {{-- (optionnel) bouton action rapide
-      <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
-        <i class="ti ti-plus me-1"></i>Nouveau post
-      </a>
-      --}}
     </div>
   </div>
 

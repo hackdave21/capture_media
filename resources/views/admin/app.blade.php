@@ -88,7 +88,7 @@
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3"> Profil</p>
                     </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Deconnexion</a>
+                    <a href="" class="btn btn-outline-primary mx-3 mt-2 d-block">Deconnexion</a>
                   </div>
                 </div>
               </li>
