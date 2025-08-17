@@ -1,132 +1,187 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
-  <div class="sidenav-header">
-    <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand px-4 py-3 m-0" href="/admin/dashboard">
-      <img src="{{ asset('admintemp/assets/logo.jpg') }}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
-      <span class="ms-1 text-sm text-dark">Capture Media</span>
-    </a>
-  </div>
-  <hr class="horizontal dark mt-0 mb-2">
-  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
-    <ul class="navbar-nav">
+<aside class="left-sidebar" data-sidebarbg="skin6">
+  <div>
+    <!-- Logo -->
+    <div class="brand-logo d-flex align-items-center justify-content-between">
+      <a href="{{ route('admin.dashboard') }}" class="text-nowrap logo-img d-flex align-items-center gap-2">
+        <img src="{{ asset('admintemp/assets/logo.jpg') }}" alt="logo" style="height:32px;width:32px;border-radius:8px">
+        <span class="fw-semibold text-dark">Capture Media</span>
+      </a>
+      <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+        <i class="ti ti-x fs-8"></i>
+      </div>
+    </div>
 
-      <!-- Tableau de bord -->
-      <li class="nav-item">
-        <a class="nav-link active bg-gradient-dark text-white" href="/admin/dashboard">
-          <i class="material-symbols-rounded opacity-5">dashboard</i>
-          <span class="nav-link-text ms-1">Tableau de bord</span>
-        </a>
-      </li>
+    <!-- NAV -->
+    <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+      <ul id="sidebarnav">
+        <!-- Section -->
+        <li class="nav-small-cap">
+          <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+          <span class="hide-menu">Navigation</span>
+        </li>
 
-      <!-- Catégories -->
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" data-bs-toggle="collapse" data-bs-target="#categoriesMenu" aria-expanded="false" aria-controls="categoriesMenu">
-          <i class="material-symbols-rounded opacity-5">category</i>
-          <span class="nav-link-text ms-1">Catégories</span>
-          <i class="material-symbols-rounded ms-auto">expand_more</i>
-        </a>
-        <div class="collapse" id="categoriesMenu">
-          <ul class="nav nav-sm flex-column ms-3">
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/categories/create">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">add</i>
-                <span class="nav-link-text">Ajouter catégorie</span>
+        <!-- Dashboard -->
+        <li class="sidebar-item">
+          <a class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+             href="{{ route('admin.dashboard') }}" aria-expanded="false">
+            <i class="ti ti-layout-dashboard"></i>
+            <span class="hide-menu">Tableau de bord</span>
+          </a>
+        </li>
+
+        <!-- Catégories -->
+        <li class="sidebar-item">
+          <a class="sidebar-link has-arrow {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}"
+             href="javascript:void(0)"
+             aria-expanded="{{ request()->routeIs('admin.categories.*') ? 'true' : 'false' }}">
+            <i class="ti ti-category"></i>
+            <span class="hide-menu">Catégories</span>
+          </a>
+          <ul aria-expanded="{{ request()->routeIs('admin.categories.*') ? 'true' : 'false' }}"
+              class="collapse first-level {{ request()->routeIs('admin.categories.*') ? 'show' : '' }}">
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.categories.create') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle-plus"></i>
+                  </div>
+                  <span class="hide-menu">Ajouter catégorie</span>
+                </div>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/categories">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">list</i>
-                <span class="nav-link-text">Voir tout</span>
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.categories.index') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-list-details"></i>
+                  </div>
+                  <span class="hide-menu">Voir tout</span>
+                </div>
               </a>
             </li>
           </ul>
-        </div>
-      </li>
+        </li>
 
-      <!-- Posts -->
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" data-bs-toggle="collapse" data-bs-target="#postsMenu" aria-expanded="false" aria-controls="postsMenu">
-          <i class="material-symbols-rounded opacity-5">article</i>
-          <span class="nav-link-text ms-1">Posts</span>
-          <i class="material-symbols-rounded ms-auto">expand_more</i>
-        </a>
-        <div class="collapse" id="postsMenu">
-          <ul class="nav nav-sm flex-column ms-3">
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/posts/create">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">add</i>
-                <span class="nav-link-text">Ajouter post</span>
+        <!-- Posts -->
+        <li class="sidebar-item">
+          <a class="sidebar-link has-arrow {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}"
+             href="javascript:void(0)"
+             aria-expanded="{{ request()->routeIs('admin.posts.*') ? 'true' : 'false' }}">
+            <i class="ti ti-article"></i>
+            <span class="hide-menu">Posts</span>
+          </a>
+          <ul aria-expanded="{{ request()->routeIs('admin.posts.*') ? 'true' : 'false' }}"
+              class="collapse first-level {{ request()->routeIs('admin.posts.*') ? 'show' : '' }}">
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.posts.create') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle-plus"></i>
+                  </div>
+                  <span class="hide-menu">Ajouter post</span>
+                </div>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/posts">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">list</i>
-                <span class="nav-link-text">Voir tout</span>
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.posts.index') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-list-details"></i>
+                  </div>
+                  <span class="hide-menu">Voir tout</span>
+                </div>
               </a>
             </li>
           </ul>
-        </div>
-      </li>
+        </li>
 
-      <!-- Sponsors -->
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" data-bs-toggle="collapse" data-bs-target="#sponsorsMenu" aria-expanded="false" aria-controls="sponsorsMenu">
-          <i class="material-symbols-rounded opacity-5">business</i>
-          <span class="nav-link-text ms-1">Sponsors</span>
-          <i class="material-symbols-rounded ms-auto">expand_more</i>
-        </a>
-        <div class="collapse" id="sponsorsMenu">
-          <ul class="nav nav-sm flex-column ms-3">
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/sponsors/create">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">add</i>
-                <span class="nav-link-text">Ajouter sponsor</span>
+        <!-- Vidéos -->
+        <li class="sidebar-item">
+          <a class="sidebar-link has-arrow {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}"
+             href="javascript:void(0)"
+             aria-expanded="{{ request()->routeIs('admin.videos.*') ? 'true' : 'false' }}">
+            <i class="ti ti-player-play"></i>
+            <span class="hide-menu">Vidéos</span>
+          </a>
+          <ul aria-expanded="{{ request()->routeIs('admin.videos.*') ? 'true' : 'false' }}"
+              class="collapse first-level {{ request()->routeIs('admin.videos.*') ? 'show' : '' }}">
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.videos.create') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle-plus"></i>
+                  </div>
+                  <span class="hide-menu">Ajouter vidéo</span>
+                </div>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/sponsors">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">list</i>
-                <span class="nav-link-text">Voir tout</span>
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.videos.index') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-list-details"></i>
+                  </div>
+                  <span class="hide-menu">Voir tout</span>
+                </div>
               </a>
             </li>
           </ul>
-        </div>
-      </li>
+        </li>
 
-      <!-- Vidéos -->
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" data-bs-toggle="collapse" data-bs-target="#videosMenu" aria-expanded="false" aria-controls="videosMenu">
-          <i class="material-symbols-rounded opacity-5">video_library</i>
-          <span class="nav-link-text ms-1">Vidéos</span>
-          <i class="material-symbols-rounded ms-auto">expand_more</i>
-        </a>
-        <div class="collapse" id="videosMenu">
-          <ul class="nav nav-sm flex-column ms-3">
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/videos/create">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">add</i>
-                <span class="nav-link-text">Ajouter vidéo</span>
+        <!-- Sponsors -->
+        <li class="sidebar-item">
+          <a class="sidebar-link has-arrow {{ request()->routeIs('admin.sponsors.*') ? 'active' : '' }}"
+             href="javascript:void(0)"
+             aria-expanded="{{ request()->routeIs('admin.sponsors.*') ? 'true' : 'false' }}">
+            <i class="ti ti-building-skyscraper"></i>
+            <span class="hide-menu">Sponsors</span>
+          </a>
+          <ul aria-expanded="{{ request()->routeIs('admin.sponsors.*') ? 'true' : 'false' }}"
+              class="collapse first-level {{ request()->routeIs('admin.sponsors.*') ? 'show' : '' }}">
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.sponsors.create') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle-plus"></i>
+                  </div>
+                  <span class="hide-menu">Ajouter sponsor</span>
+                </div>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark py-2" href="/admin/videos">
-                <i class="material-symbols-rounded opacity-5 me-2" style="font-size: 16px;">list</i>
-                <span class="nav-link-text">Voir tout</span>
+            <li class="sidebar-item">
+              <a class="sidebar-link justify-content-between" href="{{ route('admin.sponsors.index') }}">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-list-details"></i>
+                  </div>
+                  <span class="hide-menu">Voir tout</span>
+                </div>
               </a>
             </li>
           </ul>
-        </div>
-      </li>
+        </li>
 
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Authentification</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/admin/profile">
-          <i class="material-symbols-rounded opacity-5">person</i>
-          <span class="nav-link-text ms-1">Profil</span>
-        </a>
-      </li>
-    </ul>
+        <!-- Auth -->
+        <li class="nav-small-cap mt-3">
+          <iconify-icon icon="solar:user-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+          <span class="hide-menu">Authentification</span>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="#">
+            <i class="ti ti-user"></i>
+            <span class="hide-menu">Profil</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" class="sidebar-link btn btn-link p-0 text-start w-100">
+              <i class="ti ti-logout"></i>
+              <span class="hide-menu">Déconnexion</span>
+            </button>
+          </form>
+        </li>
+      </ul>
+    </nav>
   </div>
 </aside>
