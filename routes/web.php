@@ -26,7 +26,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
 // Admin protégé
 Route::middleware(['auth','is_admin'])->prefix('admin')->as('admin.')->group(function () {
-    Route::get('/', DashboardController::class)->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     Route::resource('categories', App\Http\Controllers\AdminControllers\CategoryController::class);
     Route::resource('posts', App\Http\Controllers\AdminControllers\PostController::class);
