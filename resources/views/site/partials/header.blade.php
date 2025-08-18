@@ -48,7 +48,7 @@
             </ul>
           </li>
 
-          <li><a href="#footer">Contact</a></li>
+          <li><a href="{{ route('contact.show') }}">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
