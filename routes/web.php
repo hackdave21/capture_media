@@ -42,3 +42,4 @@ Route::get('/categorie/{slug}', [CategoryController::class, 'show'])->name('cate
 Route::get('/recherche',SearchController::class)->name('search');
 
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.show');
+Route::get('/about', [ContactController::class, 'create'])->name('about');
